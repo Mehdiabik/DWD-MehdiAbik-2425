@@ -1,0 +1,39 @@
+body {
+    background-color: #53427b;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+main {
+    display: flex;
+}
+
+img {
+    margin-right: 25px;
+    width: 200px;
+}
+
+form p {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputBod {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+#frmAanbieden button {
+    font-size: 12px;
+    padding: 5px 5px;
+}
+
+#lblMessage {
+    font-size: 18px;
+    font-style: italic;
+}

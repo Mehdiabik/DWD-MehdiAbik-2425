@@ -11,8 +11,7 @@ const paswoorden = ['Kleptoe', 'test', 'Azert123', 'rogier@work', 'password', 'M
 // print all passwords
 console.log('Alle paswoorden: ');
 
-for (let i = 0; i < paswoorden.length; i++)
-{
+for (let i = 0; i < paswoorden.length; i++) {
     console.log(`${i + 1}.${paswoorden[i]}`);
 }
 

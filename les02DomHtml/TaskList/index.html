@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Tekststijl</title>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+   <main>
+      <div id="tasks">
+         <div class="task">
+            <span class="priority priority--low material-icons">assignment</span>
+            <p class="tasktext">boodschappen doen</p>
+            <span class="complete material-icons">more_horiz</span>
+         </div>
+         <div class="task">
+            <span class="priority priority--high material-icons">assignment</span>
+            <p class="tasktext">verzekering bellen <span class="deadline">(deadline: 2022-03-24)</span></p>
+            <span class="complete material-icons">more_horiz</span>
+         </div>
+      </div>
+      <form id="frmTask">
+         <label for="selPriority">prioriteit:</label>
+         <select id="selPriority">
+            <option value="low">laag</option>
+            <option value="normal" selected>normaal</option>
+            <option value="high">hoog</option>
+         </select>
+         <label for="datDeadline">deadline:</label>
+         <input type="date" id="datDeadline">
+         <label for="txtTask">taak:</label>
+         <textarea id="txtTask"></textarea>
+         <button class="button" type="submit" id="btnSubmit">verzenden</button>
+      </form>
+   </main>
+   <script src="js/script.jsks"></script>
+</body>
+
+</html>

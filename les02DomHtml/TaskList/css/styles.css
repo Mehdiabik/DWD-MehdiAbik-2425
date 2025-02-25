@@ -1,0 +1,138 @@
+/* GENERAL */
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+html {
+   background-color: #DBEAF0;
+}
+
+body {
+    background-color: transparent;
+    font-family: roboto;
+    font-size: 14px;
+    padding: 20px;
+    width: 100%;
+}
+
+main {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   margin: 20px auto;
+   max-width: 400px;
+}
+
+/* TASKLIST */
+
+#tasks {
+   background-color: white;
+   overflow-y: auto;
+   padding: 10px 5px;
+   height: 300px;
+   width: 100%;
+}
+
+.task {
+   cursor: pointer;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 5px;
+   padding: 5px;
+}
+
+.task.complete {
+   background-color: #DBEAF066;
+}
+
+.task:hover {
+   background-color: #DBEAF066;
+}
+
+.tasktext {
+   flex: 1;
+   padding-top: 4px;
+}
+
+.priority {
+   margin-right: 10px;
+}
+
+.priority--high {
+   color: #900;
+}
+
+.priority--normal {
+   color: #c60;
+}
+
+.priority--low {
+   color: #090;
+}
+
+.complete {
+   color: #666;
+}
+
+.complete:hover {
+   color: #333;
+}
+
+.complete.done {
+   color: #090;
+}
+
+.deadline {
+   font-size: smaller;
+   font-style: italic;
+}
+
+/* FORM */
+
+.button {
+    background-color: #ddd;
+    border: 1px solid;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.button:hover,
+.button.active {
+    background-color: #444;
+    color: #ccc;
+}
+
+.button:active {
+    background-color: #222;
+    color: #ccc;
+}
+
+#txtTask {
+   height: 50px;
+}
+
+#frmTask {
+   display: grid;
+   gap: 10px;
+   grid-template-columns: 120px 1fr;
+}
+
+#frmTask [type=submit] {
+   grid-column: 1/3;
+   justify-self: end;
+}
+
+input, textarea, select {
+   font-family: roboto;
+   font-size: 14px;
+   padding: 5px 10px;
+}
+
+textarea {
+   min-height: 100px;
+}
