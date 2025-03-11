@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Filters</title>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&display=swap"
+      rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+   <header>
+      <h1 class="header__logo">Mijn vakantiefoto's</h1>
+      <ul class="header__view">
+         <li><a href="#" id="lnkViewGrid" class="active"><span class="material-icons">view_module</span></a></li>
+         <li><a href="#" id="lnkViewList"><span class="material-icons">view_list</span></a></li>
+      </ul>
+   </header>
+   <nav>
+      <ul class="nav__filters">
+         <li><a href="#" data-filter="alle" class="active filter__tab" id="lnkFilterAlle">alle</a></li>
+         <li><a href="#" data-filter="nacht" class="filter__tab" id="lnkFilter1">nacht</a></li>
+         <li><a href="#" data-filter="natuur" class="filter__tab" id="lnkFilter2">natuur</a></li>
+         <li><a href="#" data-filter="steden" class="filter__tab" id="lnkFilter3">steden</a></li>
+      </ul>
+   </nav>
+   <main>
+      <p>aantal gevonden: <span id="numFound"></span></p>
+      <div id="gallery" class="grid">
+         <figure data-filters="nacht steden">
+            <img src="https://rvdl.be/img/photo1-m.jpg" alt="">
+            <figcaption>Amman 's nachts, Jordanië</figcaption>
+         </figure>
+         <figure data-filters="natuur woestijn">
+            <img src="https://rvdl.be/img/photo2-m.jpg" alt="">
+            <figcaption>Wadi Rum, Jordanië</figcaption>
+         </figure>
+         <figure data-filters="steden">
+            <img src="https://rvdl.be/img/photo3-m.jpg" alt="">
+            <figcaption>Atlas, Marocco</figcaption>
+         </figure>
+         <figure data-filters="woestijn">
+            <img src="https://rvdl.be/img/photo4-m.jpg" alt="">
+            <figcaption>theehuis, Marocco</figcaption>
+         </figure>
+         <figure data-filters="steden">
+            <img src="https://rvdl.be/img/photo5-m.jpg" alt="">
+            <figcaption>versleten zetel, Iran</figcaption>
+         </figure>
+         <figure data-filters="steden">
+            <img src="https://rvdl.be/img/photo6-m.jpg" alt="">
+            <figcaption>mozaïek, Isfahan, Iran</figcaption>
+         </figure>
+         <figure data-filters="steden">
+            <img src="https://rvdl.be/img/photo7-m.jpg" alt="">
+            <figcaption>spelende vrouw, Teheran, Iran</figcaption>
+         </figure>
+         <figure data-filters="steden">
+            <img src="https://rvdl.be/img/photo8-m.jpg" alt="">
+            <figcaption>tuktuks, Bangkok, Thailand</figcaption>
+         </figure>
+         <figure data-filters="steden nacht">
+            <img src="https://rvdl.be/img/photo9-m.jpg" alt="">
+            <figcaption>Bangkok skyline, Thailand</figcaption>
+         </figure>
+         <figure data-filters="">
+            <img src="https://rvdl.be/img/photo10-m.jpg" alt="">
+            <figcaption>kleurrijk eten, Thailand</figcaption>
+         </figure>
+         <figure data-filters="">
+            <img src="https://rvdl.be/img/photo11-m.jpg" alt="">
+            <figcaption>liggende Boeddha, Thailand</figcaption>
+         </figure>
+         <figure data-filters="natuur">
+            <img src="https://rvdl.be/img/photo12-m.jpg" alt="">
+            <figcaption>wadi, Oman</figcaption>
+         </figure>
+         <figure data-filters="steden nacht">
+            <img src="https://rvdl.be/img/photo13-m.jpg" alt="">
+            <figcaption>Muscat, Oman</figcaption>
+         </figure>
+         <figure data-filters="natuur woestijn">
+            <img src="https://rvdl.be/img/photo14-m.jpg" alt="">
+            <figcaption>Wahiba sands, Oman</figcaption>
+         </figure>
+         <figure data-filters="">
+            <img src="https://rvdl.be/img/photo15-m.jpg" alt="">
+            <figcaption>verkeersbord, Oman</figcaption>
+         </figure>
+         <figure data-filters="">
+            <img src="https://rvdl.be/img/photo16-m.jpg" alt="">
+            <figcaption>antieke graven, Oman</figcaption>
+         </figure>
+         <figure data-filters="natuur nacht">
+            <img src="https://rvdl.be/img/photo17-m.jpg" alt="">
+            <figcaption>noorderlicht, Lapland, Finland</figcaption>
+         </figure>
+         <figure data-filters="natuur nacht">
+            <img src="https://rvdl.be/img/photo18-m.jpg" alt="">
+            <figcaption>avondlicht, Lapland, Finland</figcaption>
+         </figure>
+         <figure data-filters="natuur">
+            <img src="https://rvdl.be/img/photo19-m.jpg" alt="">
+            <figcaption>sneeuw, Lapland, Finland</figcaption>
+         </figure>
+         <figure data-filters="natuur">
+            <img src="https://rvdl.be/img/photo20-m.jpg" alt="">
+            <figcaption>bevroren boom, Lapland, Finland</figcaption>
+         </figure>
+      </div>
+   </main>
+   <script src="js/script.js"></script>
+</body>
+
+</html>

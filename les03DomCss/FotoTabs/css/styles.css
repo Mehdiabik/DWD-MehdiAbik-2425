@@ -1,0 +1,158 @@
+/*
+ * Main styles
+ *
+ * @author Rogier van der Linde <rogier@bitmatters.be>
+ */
+
+
+/* general  */
+
+* {
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   background-color: #EEF1C0;
+   font-family: roboto;
+   font-size: 14px;
+   margin: 0 auto;
+}
+
+figcaption {
+   font-size: smaller;
+   font-style: italic;
+}
+
+img {
+   max-width: 100%;
+}
+
+p {
+   line-height: 1.6;
+   margin-bottom: 1em;
+}
+
+.hidden {
+   display: none !important;
+}
+
+/* header */
+
+header {
+   background-color: #ccc;
+   display: flex;
+   justify-content: space-between;
+   padding: 20px;
+}
+
+.header__logo {
+   font-weight: 300;
+   margin-bottom: 20px;
+}
+
+.header__view {
+   display: flex;
+   list-style: none;
+}
+
+.header__view li {
+   margin-left: 5px;
+}
+
+.header__view a {
+   color: #aaa;
+   text-decoration: none;
+}
+
+.header__view li a.active,
+.header__view li:hover a {
+   color: #000;
+}
+
+/* navigation  */
+
+nav {
+   background-color: #ccc;
+   border-bottom: 1px solid #000;
+}
+
+.nav__filters {
+   display: flex;
+   justify-content: center;
+   list-style: none;
+}
+
+.nav__filters li {
+   margin: 5px;
+}
+
+.filter__tab {
+   background-color: #EEF1C0;
+   border: 1px solid #000;
+   color: #666;
+   cursor: pointer;
+   padding: 5px 10px;
+   text-decoration: none;
+   text-transform: uppercase;
+}
+
+.filter__tab.active {
+   border-bottom-color: #EEF1C0;
+}
+
+.filter__tab:hover {
+   background-color: #444;
+   color: #ccc;
+}
+
+.filter__tab:active {
+   background-color: #222;
+   color: #ccc;
+}
+
+/* main  */
+
+main {
+   max-width: 1000px;
+   padding: 20px;
+   margin: 0 auto;
+}
+
+/* grid view */
+
+#gallery.grid {
+   display: flex;
+   flex-flow: row wrap;
+   margin: 0 auto;
+   max-width: 1000px;
+   padding: 20px;
+}
+
+#gallery.grid figure {
+   margin-bottom: 20px;
+   margin-right: 2%;
+   width: 23%;
+}
+
+/* list view */
+
+#gallery.list {
+   display: flex;
+   flex-flow: column nowrap;
+   flex-direction: column;
+   gap: 20px;
+}
+
+#gallery.list figure {
+   display: flex;
+   gap: 20px;
+}
+
+#gallery.list img {
+   max-width: 400px;
+}
+
+#gallery.list figcaption {
+   font-size: 18px;
+}

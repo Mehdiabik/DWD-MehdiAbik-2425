@@ -1,0 +1,98 @@
+html {
+	font-size: 62.5%;
+}
+
+body {
+	display: flex;
+	font-family: Roboto;
+	font-size: 1.4rem;
+	justify-content: center;
+}
+
+.filter-wrapper {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	max-width: 70rem;
+}
+
+img {
+	max-width: 100%;
+}
+
+.filters {
+	display: flex;
+	flex-flow: column nowrap;
+	list-style: none;
+	align-items: center;
+	padding: 0;
+}
+
+.filters button {
+	border: 1px solid;
+	margin: 1rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	transition: color 0.3s, background-color 0.3s;
+	min-width: 12rem;
+}
+
+.filters button:hover,
+.filters button.active {
+   background-color: black;
+   color: white;
+}
+
+.filters button, label[for=slider1] {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+}
+
+#slider1 {
+	width: 40%;
+	max-width: 30rem;
+	margin: 0 1rem;
+	align-items: center;	
+}
+
+#slider-label {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	width: 100%;
+}
+
+.grayscale {
+	filter: grayscale(100%);
+}
+
+.sepia {
+	filter: sepia(100%);
+}
+
+.hue {
+	filter: hue-rotate(180deg);
+}
+
+.blur {
+	filter: blur(5px);
+}
+
+.actief {
+	background-color: #333;
+	border-color: #a7d8de;
+	border-style: ridge;
+	border-width: 7px;
+	color: #fff;
+}
+
+@media(min-width: 40em) {
+	.filters {
+		flex-flow: row nowrap;
+		list-style: none;
+		justify-content: center;	
+	}
+	.filters button {
+		min-width: 0;
+	}
+}

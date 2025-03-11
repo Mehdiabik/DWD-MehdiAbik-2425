@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<title>Filter oefening</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/styles.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="filter-wrapper">
+		<img src="img/van.jpg" alt="van" id="van">
+		<ul class="filters">
+			<ul class="filters">
+				<li><button type="button" class="filter active" id="normaal-filter">normal</button></li>
+				<li><button type="button" class="filter" id="grayscale-filter">grayscale</button></li>
+				<li><button type="button" class="filter" id="sepia-filter">sepia</button></li>
+				<li><button type="button" class="filter" id="hue-filter">hue</button></li>
+				<li><button type="button" class="filter" id="blur-filter">blur</button></li>
+			</ul>
+		</ul>
+		<label id="slider-label">
+			<span>opacity:</span>
+			<input type="range" id="sliderInp" min="0" max="1" step="0.05" value="1">
+			<span id="slider">100%</span>
+		</label>
+	</div>
+	<script src="js/script.js"></script>
+</body>
+</html>
