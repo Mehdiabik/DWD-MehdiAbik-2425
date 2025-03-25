@@ -1,0 +1,71 @@
+/* GENERAL */
+
+* {
+   box-sizing: border-box;
+}
+
+body {
+   font-family: Verdana;
+   font-size: 14px;
+   max-width: 700px;
+   padding: 20px;
+}
+
+/* FORM */
+
+.container {
+   display: flex;
+   justify-content: space-between;
+}
+
+img {
+   width: 150px;
+}
+
+.form {
+   border: 2px dashed #ccc;
+   padding: 10px 20px;
+   width: calc(100% - 170px);
+}
+
+input, select, button {
+   border: 1px solid #666;
+   margin: 0 2px;
+   padding: 3px 5px;
+}
+
+#msgCats {
+   font-size: 8px;
+   font-style: italic;
+}
+
+/* QUOtE */
+
+#quote span {
+   display: block;
+}
+
+/* @see https://freefrontend.com/css-quote-styles/ */
+.sidekick {
+   position: relative;
+   padding-left: 1em;
+   border-left: 0.2em solid #039be5;
+   font-family: 'Roboto', serif;
+   font-size: 24px;
+   line-height: 1.5em;
+   font-weight: 100;
+   opacity: 0;
+   transition: opacity 1s;
+ }
+ .sidekick:before, .sidekick:after {
+   font-family: Calibri;
+     color: #039be5;
+     font-size: 34px;
+ }
+ .sidekick:before {content: '\201e'}
+ .sidekick:after {content: '\201c';}
+ .sidekick cite {font-size: 50%; text-align:center; top:50%}
+ .sidekick cite:before {content: ' \2015 '}
+ .sidekick.show {
+   opacity: 1;
+ }

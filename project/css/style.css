@@ -1,0 +1,113 @@
+/* Algemene stijl */
+body {
+    font-family: Arial, sans-serif;
+    background: #e3e6eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    margin: 0;
+}
+
+/* Chat-container */
+.container {
+    width: 600px;
+    padding: 20px;
+}
+
+/* Titel */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 22px;
+}
+
+/* Chatbox */
+#chat-box {
+    height: 400px;    
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Chatberichten */
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.text {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.4;
+    border: 1px solid #ddd;
+}
+
+/* Afbeeldingen in chat */
+.message img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+/* Formulierstijl */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Knoppen container (rechts uitlijnen) */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Knoppen */
+button {
+    padding: 10px;
+    margin: 5px;
+    width: 120px;
+    background: #e3e6eb;
+    color: black;
+    border: 1px solid black;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d0d4d9;
+}
+
+/* voor de functie filter */
+.sepia { 
+    filter: sepia(100%);  
+}
