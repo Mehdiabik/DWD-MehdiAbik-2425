@@ -33,6 +33,27 @@
             <button id="filterFoto">FILTER FOTO</button>
         </form>
 
+        <!-- Modal voor GIF-selectie -->
+        <!-- Modal voor GIF-selectie -->
+        <div id="gif-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="gif-search-title">Je zocht op: ...</h3>
+                <div id="gif-gallery" class="gif-container"></div>
+
+                <div class="gif-nav">
+                    <button id="btn-prev">&lt; previous</button>
+                    <button id="btn-next">next &gt;</button>
+                </div>
+
+                <div class="gif-select-bar">
+                    <button disabled>BACK</button>
+                    <button id="btn-select" class="primary">SELECT</button>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <script src="js/script.js"></script>
     <!-- Include MD5 library from CDN in HTML -->
