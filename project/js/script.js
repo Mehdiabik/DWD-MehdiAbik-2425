@@ -28,27 +28,8 @@ let currentGifIndex = 0;
 let gifResults = [];
 let activeTextElement = null;
 
-// Hulp-functie om displayName op te halen via Gravatar API
-async function getGravatarProfile(email) {
-    const emailHash = md5(email.trim().toLowerCase());
-    const url = `https://www.gravatar.com/${emailHash}.json`;
-
-    try {
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error('Geen profiel');
-        const data = await resp.json();
-        const profile = data.entry[0];
-        return {
-            displayName: profile.displayName || email
-        };
-    } catch (err) {
-        console.log('geen publiek profiel gevonden');
-        return { displayName: email };
-    }
-}
-
 // Bericht toevoegen + gravatar ophalen
-async function handleGravatar(e) {
+function handleGravatar(e) {
     e.preventDefault();
     MsgGravatar.innerHTML = '';
 
@@ -77,55 +58,78 @@ async function handleGravatar(e) {
 
     if (!geldig) return;
 
-    // MD5 hash en fallback avatar
-    const emailHash = md5(email);
+    // MD5 hash van het e-mailadres met CryptoJS
+    const emailHash = md5(email).toString();
+
+    // Avatar URL via Gravatar (zonder JSON/fetch)
     const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
 
-    // displayName ophalen via gravatar API
-    const profile = await getGravatarProfile(email);
-    const displayName = profile.displayName;
+    // Naam = gewoon het e-mailadres
+    const displayName = email;
 
-    // Nieuw berichtobject
-    const newMessage = {
+    // Nieuw bericht object
+    const nieuwBericht = {
         name: displayName,
         avatar: gravatarUrl,
         text: comment
     };
 
-    // Huidige chat ophalen, toevoegen, opslaan
-    const chatHistory = loadFromLocalStorage();
-    chatHistory.push(newMessage);
-    saveToLocalStorage(chatHistory);
-    renderChat(chatHistory);
+    // Opslaan in localStorage en tonen
+    const geschiedenis = loadFromLocalStorage();
+    geschiedenis.push(nieuwBericht);
+    saveToLocalStorage(geschiedenis);
+    renderChat(geschiedenis);
 
-    // Formulier leegmaken + email onthouden
+    // Reset form + onthoud email
     commentInput.value = '';
     localStorage.setItem('savedEmail', email);
 }
 
+
 // Gravatar foto filter (extra - sepia stijl)
-async function handleFotoFilter(e) {
+function handleFotoFilter(e) {
     e.preventDefault();
     MsgGravatar.innerHTML = '';
-
+    const comment = commentInput.value.trim();
     const email = Email.value.trim().toLowerCase();
-    const emailHash = md5(email);
-    const url = `https://www.gravatar.com/${emailHash}.json`;
+    let geldig = true;
 
-    try {
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error();
+    // Validatie email
 
-        const data = await resp.json();
-        const entry = data.entry[0];
-
-        MsgGravatar.innerHTML = `<div>
-            <img src='${entry.thumbnailUrl}' alt='Gravatar' class="sepia" style="width: 100px; height: 100px;">
-        </div>`;
-    } catch (err) {
-        MsgGravatar.innerHTML = '<p>Geen publieke gravatar gevonden.</p>';
+    if (email === '') {
+        MsgEmail.innerHTML = 'email mag niet leeg zijn';
+        geldig = false;
+    } else if (!email.includes('@')) {
+        MsgEmail.innerHTML = 'email moet @ bevatten';
+        geldig = false;
+    } else {
+        MsgEmail.innerHTML = '';
     }
+
+    // Validatie comment
+    if (comment === '') {
+        msgComment.innerText = 'comment mag niet leeg zijn';
+        geldig = false;
+    } else {
+        msgComment.innerText = '';
+    }
+    if (!geldig) return;
+
+    const emailHash = md5(email).toString();
+    const avatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
+
+    const newMessage = {
+        name: email,
+        avatar: avatarUrl, // avatar in de chatbubble
+        text: comment + `<img src="${avatarUrl}" class="sepia" style="width:100px; height:100px;">`
+    };
+
+    const geschiedenis = loadFromLocalStorage();
+    geschiedenis.push(newMessage);
+    saveToLocalStorage(geschiedenis);
+    renderChat(geschiedenis);
 }
+
 
 // Opslaan & laden uit localStorage
 function saveToLocalStorage(chatArray) {
@@ -152,7 +156,7 @@ function renderChat(chatArray) {
 
         const textDiv = document.createElement('div');
         textDiv.className = 'text';
-        textDiv.textContent = msg.text;
+        textDiv.innerHTML = msg.text;
 
         // Voeg GIFs toe als ze er zijn
         if (msg.images) {
