@@ -170,6 +170,14 @@ button:hover {
     cursor: pointer;
 }
 
+#gif-modal {
+    display: none;
+    /* eventueel andere styling zoals achtergrond, positionering, etc. */
+}
+
+#gif-modal.show {
+    display: block;
+}
 
 /* voor de functie filter */
 .sepia { 

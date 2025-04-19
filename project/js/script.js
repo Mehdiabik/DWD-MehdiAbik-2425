@@ -11,7 +11,6 @@ const msgComment = document.querySelector('#msgComment');
 const form = document.querySelector('#frmComment');
 const Email = form.querySelector('#inpEmail');
 const MsgEmail = form.querySelector('#msgEmail');
-const MsgGravatar = form.querySelector('#msgGravatar');
 const BtnGravatar = form.querySelector('#Gravatar');
 const BtnFilter = form.querySelector('#filterFoto');
 
@@ -28,16 +27,37 @@ let currentGifIndex = 0;
 let gifResults = [];
 let activeTextElement = null;
 
+function generateMD5(email) {
+    return md5(email.trim().toLowerCase()).toString();
+}
+
+// Gravatar profiel ophalen via fetch
+async function fetchGravatarProfile(email) {
+    const emailHash = generateMD5(email);
+    const url = `https://www.gravatar.com/${emailHash}.json`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+
+        const data = await response.json();
+        return {
+            displayName: data.entry[0].displayName || email,
+            avatar: data.entry[0].thumbnailUrl || `https://www.gravatar.com/avatar/${emailHash}?d=mp`
+        };
+    } catch {
+        return null;
+    }
+}
+
 // Bericht toevoegen + gravatar ophalen
-function handleGravatar(e) {
+async function handleGravatar(e) {
     e.preventDefault();
-    MsgGravatar.innerHTML = '';
 
     const email = Email.value.trim().toLowerCase();
     const comment = commentInput.value.trim();
     let geldig = true;
 
-    // Validatie email
     if (email === '') {
         MsgEmail.innerHTML = 'email mag niet leeg zijn';
         geldig = false;
@@ -48,7 +68,6 @@ function handleGravatar(e) {
         MsgEmail.innerHTML = '';
     }
 
-    // Validatie comment
     if (comment === '') {
         msgComment.innerText = 'comment mag niet leeg zijn';
         geldig = false;
@@ -58,43 +77,32 @@ function handleGravatar(e) {
 
     if (!geldig) return;
 
-    // MD5 hash van het e-mailadres met CryptoJS
-    const emailHash = md5(email).toString();
+    const profile = await fetchGravatarProfile(email);
+    const avatarUrl = profile?.avatar || `https://www.gravatar.com/avatar/${generateMD5(email)}?d=mp`;
+    const displayName = profile?.displayName || email;
 
-    // Avatar URL via Gravatar (zonder JSON/fetch)
-    const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
-
-    // Naam = gewoon het e-mailadres
-    const displayName = email;
-
-    // Nieuw bericht object
     const nieuwBericht = {
         name: displayName,
-        avatar: gravatarUrl,
+        avatar: avatarUrl,
         text: comment
     };
 
-    // Opslaan in localStorage en tonen
     const geschiedenis = loadFromLocalStorage();
     geschiedenis.push(nieuwBericht);
     saveToLocalStorage(geschiedenis);
-    renderChat(geschiedenis);
+    await renderChat(geschiedenis);
 
-    // Reset form + onthoud email
     commentInput.value = '';
     localStorage.setItem('savedEmail', email);
 }
 
-
-// Gravatar foto filter (extra - sepia stijl)
-function handleFotoFilter(e) {
+// Gravatar foto filter (sepia)
+async function handleFotoFilter(e) {
     e.preventDefault();
-    MsgGravatar.innerHTML = '';
+
     const comment = commentInput.value.trim();
     const email = Email.value.trim().toLowerCase();
     let geldig = true;
-
-    // Validatie email
 
     if (email === '') {
         MsgEmail.innerHTML = 'email mag niet leeg zijn';
@@ -106,30 +114,64 @@ function handleFotoFilter(e) {
         MsgEmail.innerHTML = '';
     }
 
-    // Validatie comment
     if (comment === '') {
         msgComment.innerText = 'comment mag niet leeg zijn';
         geldig = false;
     } else {
         msgComment.innerText = '';
     }
+
     if (!geldig) return;
 
-    const emailHash = md5(email).toString();
-    const avatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=mp`;
+    const profile = await fetchGravatarProfile(email);
+    const avatarUrl = profile?.avatar || `https://www.gravatar.com/avatar/${generateMD5(email)}?d=mp`;
 
     const newMessage = {
         name: email,
-        avatar: avatarUrl, // avatar in de chatbubble
-        text: comment + `<img src="${avatarUrl}" class="sepia" style="width:100px; height:100px;">`
+        avatar: avatarUrl,
+        text: `<p>${comment}</p><img src="${avatarUrl}" class="sepia" alt="Gravatar" style="width:100px; height:100px;">`
     };
 
     const geschiedenis = loadFromLocalStorage();
     geschiedenis.push(newMessage);
     saveToLocalStorage(geschiedenis);
-    renderChat(geschiedenis);
+    await renderChat(geschiedenis);
 }
 
+// Chatberichten tonen in HTML (met innerHTML en fetch ondersteuning)
+function renderChat(chatArray) {
+    chatBox.innerHTML = ''; // wis bestaande berichten
+
+    for (const msg of chatArray) {
+        // HTML string voor GIFs toevoegen
+        let gifHTML = '';
+        if (Array.isArray(msg.images)) {
+            for (const src of msg.images) {
+                gifHTML += `<img src="${src}" alt="GIF" style="margin-top:10px; max-width:100%">`;
+            }
+        }
+
+        const messageHTML = `
+            <div class="message" title="${msg.name}">
+                <img src="${msg.avatar}" alt="Gravatar" class="avatar">
+                <div class="text">${msg.text}${gifHTML}</div>
+            </div>
+        `;
+
+        chatBox.innerHTML += messageHTML;
+    }
+
+    const textDivs = chatBox.querySelectorAll('.text');
+    for (const textDiv of textDivs) {
+        textDiv.addEventListener('dblclick', () => {
+            const woorden = textDiv.textContent.trim().split(' ');
+            const zoekterm = woorden[0] || 'funny';
+            openGifModal(zoekterm, textDiv);
+        });
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
 
 // Opslaan & laden uit localStorage
 function saveToLocalStorage(chatArray) {
@@ -138,50 +180,10 @@ function saveToLocalStorage(chatArray) {
 
 function loadFromLocalStorage() {
     const data = localStorage.getItem('chatMessages');
-    return data ? JSON.parse(data) : [];
-}
-
-// Chatberichten tonen in HTML
-function renderChat(chatArray) {
-    chatBox.innerHTML = '';
-    chatArray.forEach(msg => {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message';
-        messageDiv.title = msg.name;
-
-        const avatarImg = document.createElement('img');
-        avatarImg.src = msg.avatar;
-        avatarImg.alt = 'Gravatar';
-        avatarImg.className = 'avatar';
-
-        const textDiv = document.createElement('div');
-        textDiv.className = 'text';
-        textDiv.innerHTML = msg.text;
-
-        // Voeg GIFs toe als ze er zijn
-        if (msg.images) {
-            msg.images.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.style.marginTop = '10px';
-                img.style.maxWidth = '100%';
-                textDiv.appendChild(img);
-            });
-        }
-
-        // Dubbelklik event toevoegen
-        textDiv.addEventListener('dblclick', () => {
-            const woorden = msg.text.split(' ');
-            const zoekterm = woorden[0]; // of zelf kiezen welke
-            openGifModal(zoekterm, textDiv);
-        });
-
-        messageDiv.appendChild(avatarImg);
-        messageDiv.appendChild(textDiv);
-        chatBox.appendChild(messageDiv);
-    });
-
-    chatBox.scrollTop = chatBox.scrollHeight;
+    if (data) {
+        return JSON.parse(data);
+    } 
+    return [];
 }
 
 // Open modal met gifs op basis van zoekterm
@@ -191,60 +193,46 @@ async function openGifModal(keyword, targetTextElement) {
     gifGallery.innerHTML = 'GIFs laden...';
 
     const apiKey = 'BE7EGnnCuQlhDSOBVuJhS4114y0xh5yK';
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${encodeURIComponent(keyword)}&limit=10&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${keyword}&limit=10&rating=g`;
 
-    try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        gifResults = data.data;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    gifResults = data.data;
 
-        if (gifResults.length === 0) {
-            gifGallery.innerHTML = 'Geen gifs gevonden.';
-            return;
-        }
-
+    if (gifResults.length === 0) {
+        gifGallery.innerHTML = 'Geen gifs gevonden.';
+    } else {
         currentGifIndex = 0;
         renderGif();
-        modal.style.display = 'block';
-    } catch (err) {
-        gifGallery.innerHTML = 'Er ging iets mis bij het laden van GIFs.';
+        modal.classList.add('show'); // ✅ class toevoegen i.p.v. .style.display
     }
 }
 
-// Toon de geselecteerde GIF in de galerij
 function renderGif() {
     gifGallery.innerHTML = '';
     const gif = gifResults[currentGifIndex];
-    const img = document.createElement('img');
-    img.src = gif.images.fixed_height.url;
-    img.alt = gif.title;
-    gifGallery.appendChild(img);
+    gifGallery.innerHTML = `<img src="${gif.images.fixed_height.url}" alt="${gif.title}" style="max-width:100%; height:auto;">`;
 }
 
-// Sluit modal
 function closeGifModal() {
-    modal.style.display = 'none';
+    modal.classList.remove('show'); // ✅ class verwijderen i.p.v. .style.display
     gifGallery.innerHTML = '';
     gifResults = [];
     currentGifIndex = 0;
 }
 
-// Voeg de gekozen gif toe aan de chat
 function selectGif() {
     if (!activeTextElement) return;
+
     const gif = gifResults[currentGifIndex];
-    const img = document.createElement('img');
-    img.src = gif.images.fixed_height.url;
-    img.alt = 'GIF';
-    img.style.marginTop = '10px';
-    img.style.maxWidth = '100%';
-    activeTextElement.appendChild(img);
+    const imgHTML = `<img src="${gif.images.fixed_height.url}" alt="GIF" style="margin-top:10px; max-width:100%;">`;
+    activeTextElement.innerHTML += imgHTML;
 
     saveChatBoxToLocalStorage();
     closeGifModal();
 }
 
-// Navigatieknoppen
+// Event handlers
 btnPrev.addEventListener('click', () => {
     if (gifResults.length > 0) {
         currentGifIndex = (currentGifIndex - 1 + gifResults.length) % gifResults.length;
@@ -261,28 +249,44 @@ btnNext.addEventListener('click', () => {
 
 btnSelect.addEventListener('click', selectGif);
 closeModal.addEventListener('click', closeGifModal);
+
 window.addEventListener('click', e => {
-    if (e.target === modal) closeGifModal();
+    if (e.target === modal) {
+        closeGifModal();
+    }
 });
 
-// Bewaar chat inclusief gifs
+
 function saveChatBoxToLocalStorage() {
-    const messages = [...chatBox.querySelectorAll('.message')].map(msg => {
+    const messageElements = chatBox.querySelectorAll('.message');
+    const messages = [];
+    
+    messageElements.forEach(msg => {
         const name = msg.getAttribute('title');
         const avatar = msg.querySelector('img.avatar').src;
         const textBlock = msg.querySelector('.text');
-        const text = textBlock.childNodes[0]?.textContent || '';
-        const images = [...textBlock.querySelectorAll('img')].map(img => img.src);
-        return { name, avatar, text, images };
+        const text = textBlock.innerHTML;
+    
+        const images = [];
+        const imageElements = textBlock.querySelectorAll('img');
+        imageElements.forEach(img => {
+            images.push(img.src);
+        });
+    
+        messages.push({
+            name: name,
+            avatar: avatar,
+            text: text,
+            images: images
+        });
     });
+    
     localStorage.setItem('chatMessages', JSON.stringify(messages));
 }
 
-// Event listeners
 BtnGravatar.addEventListener('click', handleGravatar);
 BtnFilter.addEventListener('click', handleFotoFilter);
 
-// Chat laden bij opstart
 const chatHistory = loadFromLocalStorage();
 renderChat(chatHistory);
 
