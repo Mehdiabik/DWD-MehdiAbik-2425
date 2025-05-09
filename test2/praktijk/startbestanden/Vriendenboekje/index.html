@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friend Book</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <button type="button" id="toggle-theme">Toggle Dark Theme</button>
+    <h1>Friend Book</h1>
+    <button type="button" id="open-modal">Add a Friend</button>
+
+  </header>
+
+  <main>
+    <h2>Total Friends: <span id="friend-count">0</span></h2>
+    <div id="friend-list">
+      <div class="friend-entry" data-color="#2196f3">
+        <p>Emma (22 years)</p>
+        <p>Email: emma@example.com</p>
+        <p>Hobbies: reading, sports</p>
+        <p>Message: Hello everyone!</p>
+      </div>
+      <div class="friend-entry" data-color="#ff5733">
+        <p>Lucas(19 years)</p>
+        <p>Email: lucas@example.com</p>
+        <p>Hobbies: gaming, sports</p>
+        <p>Message: Nice to meet you all!</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button type="button" id="close-modal" class="close">&times;</button>
+      <h2>Add a New Friend</h2>
+      <form id="friend-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+
+        <label for="age">Age:</label>
+        <input type="number" id="age">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email">
+
+        <label for="color">Favorite color:</label>
+        <input type="color" id="color" value="#2196f3">
+
+        <fieldset>
+          <legend>Hobbies:</legend>
+          <div class="checkbox-group">
+            <label><input type="checkbox" data-hobby value="reading">Reading</label>
+            <label><input type="checkbox" data-hobby value="gaming">Gaming</label>
+            <label><input type="checkbox" data-hobby value="sports">Sports</label>
+          </div>
+        </fieldset>
+
+        <label for="message">Message (max 200 characters):</label>
+        <textarea id="message" maxlength="200"></textarea>
+        <div id="char-count">200 characters left</div>
+
+        <div id="error-message" class="message hidden"></div>
+
+        <button type="submit" class="button-primary">Add Friend</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

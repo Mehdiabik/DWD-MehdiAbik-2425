@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivia Quiz</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Trivia Quiz</h1>
+  </header>
+
+  <main>
+    <section>
+      <label for="category-select">Categorie:</label>
+      <select id="category-select">
+        <option value="">-- Kies een categorie --</option>
+        <!-- Categorieën worden via JS toegevoegd -->
+      </select>
+    </section>
+
+    <section>
+      <label for="difficulty-select">Moeilijkheid:</label>
+      <select id="difficulty-select">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </section>
+
+    <button type="button" id="fetch-question">Toon vraag</button>
+
+    <section id="question-container">
+      <h2>Vraag:</h2>
+      <p id="question">De vraag verschijnt hier...</p>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
