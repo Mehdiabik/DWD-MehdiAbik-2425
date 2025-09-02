@@ -1,0 +1,87 @@
+/* Basis layout */
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: #f5f5f5;
+    color: #222;
+
+    display: flex;
+    justify-content: center;
+    /* horizontaal centreren */
+    align-items: flex-start;
+    /* bovenaan beginnen */
+    padding: 2rem;
+}
+
+/* Centrale container */
+.container {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    /* tekst ook centreren */
+}
+
+/* Titels */
+h1,
+h2 {
+    margin-bottom: 1rem;
+}
+
+/* Formulier */
+#search-form {
+    margin-bottom: 1.5rem;
+}
+
+#query {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60%;
+    max-width: 300px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    border: 1px solid #2563eb;
+    border-radius: 4px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e4ed8;
+}
+
+/* Resultatenlijst */
+#results {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+}
+
+#results li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    /* inhoud blijft links uitgelijnd */
+}
+
+#results img {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+}

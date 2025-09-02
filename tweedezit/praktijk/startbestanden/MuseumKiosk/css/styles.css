@@ -1,0 +1,472 @@
+/* ========== CSS Variabelen & Thema ========== */
+:root {
+    --bg: #ffffff;
+    --bg-panel: #f7f7f8;
+    --text: #1f2328;
+    --muted: #5a5f69;
+    --primary: #2563eb;
+    --primary-contrast: #ffffff;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --ring: rgba(37, 99, 235, 0.4);
+    --shadow: 0 6px 18px rgba(0, 0, 0, .08);
+    --radius: 16px;
+    --gap: 16px;
+}
+
+.theme--dark {
+    --bg: #0b1020;
+    --bg-panel: #0f152b;
+    --text: #dbe1f8;
+    --muted: #9aa3c7;
+    --primary: #8ab4ff;
+    --primary-contrast: #0b1020;
+    --success: #6ee7b7;
+    --danger: #ff9aa2;
+    --ring: rgba(138, 180, 255, 0.4);
+    --shadow: 0 8px 20px rgba(2, 12, 46, .45);
+}
+
+/* ========== Reset & Basis ========== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans";
+    color: var(--text);
+    background: radial-gradient(1200px 600px at 100% -10%, rgba(37, 99, 235, .08), transparent 60%),
+        radial-gradient(1200px 600px at -10% 110%, rgba(22, 163, 74, .08), transparent 60%),
+        var(--bg);
+    line-height: 1.5;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.skiplink {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+}
+
+.skiplink:focus {
+    left: 1rem;
+    top: 1rem;
+    background: var(--primary);
+    color: var(--primary-contrast);
+    padding: .5rem .75rem;
+    border-radius: 8px;
+}
+
+/* ========== Header & Footer ========== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg), var(--bg-panel) 60%);
+    border-bottom: 1px solid color-mix(in srgb, var(--text), transparent 85%);
+    backdrop-filter: blur(6px);
+}
+
+.site-header__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.site-header__title {
+    margin: 0;
+    font-size: clamp(1.1rem, 1.2rem + .5vw, 1.6rem);
+}
+
+.header-toggle {
+    gap: .5rem;
+}
+
+.site-footer {
+    max-width: 1100px;
+    margin: 40px auto 24px;
+    padding-inline: 16px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* ========== Layout ========== */
+.layout {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 880px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========== Panelen ========== */
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid color-mix(in srgb, var(--text), transparent 85%);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.panel__header {
+    margin-bottom: 12px;
+}
+
+.panel__title {
+    margin: 0 0 4px 0;
+    font-size: 1.25rem;
+}
+
+.panel__subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: .95rem;
+}
+
+/* ========== Veldgroep & Inputs ========== */
+.field-group {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+.field__label {
+    font-weight: 600;
+}
+
+.field__req {
+    color: var(--danger);
+}
+
+.field__hint {
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+.field__control {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid color-mix(in srgb, var(--text), transparent 80%);
+    border-radius: 12px;
+    padding: 10px 12px;
+    outline: none;
+    transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.field__control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--ring);
+}
+
+.field__control--textarea {
+    resize: vertical;
+}
+
+.ticket__input::-webkit-outer-spin-button,
+.ticket__input::-webkit-inner-spin-button {
+    margin: 0;
+}
+
+.ticket__input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ========== Ticketlijst ========== */
+.ticket-list {
+    display: grid;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.ticket {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid color-mix(in srgb, var(--text), transparent 85%);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--bg), var(--bg-panel) 25%);
+}
+
+.ticket__info {
+    display: grid;
+    gap: 4px;
+}
+
+.ticket__name {
+    font-weight: 600;
+}
+
+.ticket__price {
+    color: var(--muted);
+    font-size: .95rem;
+}
+
+.ticket__controls {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticket__input {
+    width: 70px;
+    text-align: center;
+    padding: 8px 8px;
+    border: 1px solid color-mix(in srgb, var(--text), transparent 80%);
+    background: var(--bg);
+    border-radius: 10px;
+}
+
+/* ========== Samenvatting ========== */
+.summary {
+    padding: 0;
+    margin: 0 0 8px 0;
+    list-style: none;
+}
+
+.summary__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed color-mix(in srgb, var(--text), transparent 85%);
+}
+
+.summary__row:last-child {
+    border-bottom: 0;
+}
+
+.summary__label {
+    color: var(--muted);
+}
+
+.summary__value {
+    font-size: 1.1rem;
+}
+
+.summary__last {
+    margin-top: 12px;
+}
+
+.summary__subtitle {
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+}
+
+.summary__note {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* ========== Buttons ========== */
+.btn {
+    --btn-bg: color-mix(in srgb, var(--bg), var(--bg-panel) 15%);
+    --btn-fg: var(--text);
+    --btn-bd: color-mix(in srgb, var(--text), transparent 80%);
+    --btn-shadow: var(--shadow);
+
+    appearance: none;
+    border: 1px solid var(--btn-bd);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: transform .04s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.btn:hover {
+    box-shadow: var(--btn-shadow);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--ring);
+}
+
+.btn--primary {
+    --btn-bg: var(--primary);
+    --btn-fg: var(--primary-contrast);
+    --btn-bd: color-mix(in srgb, var(--primary), black 8%);
+}
+
+.btn--success {
+    --btn-bg: var(--success);
+    --btn-fg: var(--primary-contrast);
+    --btn-bd: color-mix(in srgb, var(--success), black 10%);
+}
+
+.btn--ghost {
+    --btn-bg: transparent;
+    --btn-fg: var(--text);
+    --btn-bd: color-mix(in srgb, var(--text), transparent 80%);
+}
+
+.btn--icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 1.15rem;
+}
+
+.btn--xs {
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: .9rem;
+}
+
+button:disabled,
+.btn[disabled] {
+    cursor: not-allowed;
+    opacity: .55;
+    box-shadow: none;
+}
+
+/* ========== Actions ========== */
+.actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.actions--stack {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ========== Modal ========== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    /* flex ipv grid */
+    align-items: center;
+    /* verticaal centreren */
+    justify-content: center;
+    /* horizontaal centreren */
+    background: rgba(2, 6, 23, .5);
+    backdrop-filter: blur(2px);
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.modal__dialog {
+    position: relative;
+    width: min(600px, 92vw);
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--text), transparent 80%);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: clip;
+    margin: 0;
+}
+
+.modal__header,
+.modal__footer {
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--bg), var(--bg-panel) 40%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal__title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.modal__close {
+    width: 36px;
+    height: 36px;
+}
+
+.modal__content {
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+}
+
+.modal__summary {
+    border: 1px dashed color-mix(in srgb, var(--text), transparent 80%);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.modal__note .field__hint {
+    text-align: right;
+}
+
+/* ========== Utility ========== */
+.icon {
+    display: inline-grid;
+    place-items: center;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+    border: 0;
+    padding: 0;
+    margin: -1px;
+}
